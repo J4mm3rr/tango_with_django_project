@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>Rango - About</title>
+    </head>
+
+    <body>
+        <h1>Rango says...</h1>
+        <div>
+            here is the about page. <br />
+            <strong>{{ boldmessage }}</strong><br />
+        </div>
+        <div>
+            <a href="/rango/">Home</a><br/>
+            <img src="{{ MEDIA_URL}}cat.jpg" alt="Cat picture" />
+        </div>
+    </body>
+    
+</html>
