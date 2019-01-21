@@ -1,15 +1,37 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Category
+from .models import Page
+
 
 def index(request):
-    # Create key/value pairs for passing to template.
-    # in this case, boldmessage corresponds to a {{ boldmessage }} in index.html.
-    context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
+        category_list = Category.objects.order_by('-likes')[:5]
+        page_list = Page.objects.order_by('-views')[:5]
+        context_dict = {'categories': category_list,
+                        'pages': page_list}
 
-    # Now return a rendered response, with the intial request,
-    # the template, and the context dict above
-    return render(request, 'rango/index.html', context=context_dict)
+        return render(request, 'rango/index.html', context=context_dict)
+
 
 def about(request):
-    context_dict = {'boldmessage': "This tutorial has been put together by James"}
-    return render(request, 'rango/about.html', context=context_dict)
+        context_dict = {'boldmessage': "This tutorial has been put together by James"}
+        return render(request, 'rango/about.html', context=context_dict)
+
+
+def show_category(request, category_name_slug):
+        context_dict = {}
+
+        try:
+                # Can we find a category slug with the given name?
+                category = Category.objects.get(slug=category_name_slug)
+
+                # Retrieve all related pages
+                pages = Page.objects.filter(category=category)
+
+                context_dict['pages'] = pages
+                context_dict['category'] = category
+
+        except Category.DoesNotExist:
+                context_dict['pages'] = None
+                context_dict['category'] = None
+
+        return render(request, 'rango/category.html', context_dict)
