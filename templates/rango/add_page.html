@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
         <title>Rango</title>
     </head>
     <body>
@@ -13,7 +12,7 @@
                     {{ hidden }}
                 {% endfor %}
                 {% for field in form.visible_fields %}
-                    {{  field.errors }}
+                    {{ field.errors }}
                     {{ field.help_text }}
                     {{ field }}
                 {% endfor %}
