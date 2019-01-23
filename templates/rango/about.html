@@ -10,6 +10,9 @@
     <div>
         here is the about page. <br />
         <strong>{{ boldmessage }}</strong><br />
+        {% if visits %}
+            You have visited this site {{ visits }} time(s)
+        {% endif %}
         <img src="{{ MEDIA_URL}}cat.jpg" alt="Cat picture" />
         <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
     </div>
